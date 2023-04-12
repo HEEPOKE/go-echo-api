@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
-        "labstack"
+        "dbname",
+        "gorm",
+        "labstack",
+        "sslmode"
     ]
 }
