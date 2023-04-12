@@ -53,6 +53,17 @@ func (c *UserController) GetUserByID(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, user)
 }
 
+func (uc *UserController) GetCurrentUser(ctx echo.Context) error {
+	userID := ctx.Get("userID").(uint)
+	user, err := uc.userService.GetUserByID(userID)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, map[string]string{
+			"error": "failed to fetch user",
+		})
+	}
+	return ctx.JSON(http.StatusOK, user)
+}
+
 func (c *UserController) UpdateUser(ctx echo.Context) error {
 	var user models.User
 	if err := ctx.Bind(&user); err != nil {

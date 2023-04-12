@@ -19,5 +19,6 @@ func MainConfig() *models.MainConfig {
 	return &models.MainConfig{
 		PORT:         os.Getenv("PORT"),
 		ENDPOINT_URL: os.Getenv("ENDPOINT_URL"),
+		SECRET_KEY:   os.Getenv("SECRET_KEY"),
 	}
 }

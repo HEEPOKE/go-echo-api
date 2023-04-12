@@ -44,6 +44,15 @@ func (s *UserService) GetUserByID(id uint) (*models.User, error) {
 	return &user, nil
 }
 
+func (s *UserService) GetUserByEmail(email string) (*models.User, error) {
+	var user models.User
+	result := s.db.Where(&models.User{Email: email}).First(&user)
+	if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+		return nil, errors.New("user not found")
+	}
+	return &user, result.Error
+}
+
 func (s *UserService) UpdateUser(user *models.User) error {
 	result := s.db.Save(user)
 	if result.Error != nil {

@@ -19,6 +19,11 @@ func Router() {
 
 	api := e.Group("/api")
 
+	authController := &controllers.AuthController{}
+	api.POST("/auth/login", authController.Login)
+	api.POST("/auth/register", authController.Register)
+	api.POST("/auth/logout", authController.Logout)
+
 	userController := &controllers.UserController{}
 	api.GET("/users", userController.GetAllUsers)
 	api.POST("/users/create", userController.CreateUser)

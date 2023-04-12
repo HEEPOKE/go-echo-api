@@ -11,4 +11,5 @@ type ConfigDB struct {
 type MainConfig struct {
 	PORT         string
 	ENDPOINT_URL string
+	SECRET_KEY   string
 }
