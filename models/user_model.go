@@ -15,13 +15,13 @@ const (
 
 type User struct {
 	gorm.Model
-	Name      string `gorm:"not null"`
-	Email     string `gorm:"not null;uniqueIndex"`
-	Password  string `gorm:"not null"`
-	Tel       string `gorm:"not null"`
-	Role      Role   `gorm:"not null;default:user"`
-	Token     string
-	ExpiresAt time.Time
+	Name      string    `gorm:"not null;size:255" json:"name"`
+	Email     string    `gorm:"not null;uniqueIndex;size:255" json:"email"`
+	Password  string    `gorm:"not null;size:255" json:"-"`
+	Tel       string    `gorm:"not null;size:255" json:"tel"`
+	Role      Role      `gorm:"not null;;size:255default:user" json:"role"`
+	Token     string    `json:"token,omitempty"`
+	ExpiresAt time.Time `json:"expires_at,omitempty"`
 }
 
 type Token struct {
