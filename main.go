@@ -1,15 +1,18 @@
 package main
 
 import (
-	"net/http"
+	"fmt"
+	"main/db"
+	"main/routes"
 
-	"github.com/labstack/echo/v4"
+	"github.com/joho/godotenv"
 )
 
 func main() {
-	e := echo.New()
-	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, World!")
-	})
-	e.Logger.Fatal(e.Start(":1323"))
+	err := godotenv.Load(".env")
+	if err != nil {
+		fmt.Println("Error loading .env file")
+	}
+	db.ConnectDB()
+	routes.Router()
 }

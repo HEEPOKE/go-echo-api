@@ -15,6 +15,15 @@ func NewUserService(db *gorm.DB) *UserService {
 	return &UserService{db}
 }
 
+func (s *UserService) GetAllUsers() ([]models.User, error) {
+	var users []models.User
+	err := s.db.Find(&users).Error
+	if err != nil {
+		return nil, err
+	}
+	return users, nil
+}
+
 func (s *UserService) CreateUser(user *models.User) error {
 	result := s.db.Create(user)
 	if result.Error != nil {
