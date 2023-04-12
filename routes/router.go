@@ -30,6 +30,10 @@ func Router() {
 	}
 	jwtMiddleware := middleware.JWTWithConfig(configJwt)
 
+	e.GET("/", func(c echo.Context) error {
+		return c.String(http.StatusOK, "HUI IS SMART!")
+	})
+
 	api := e.Group("/api")
 
 	authController := &controllers.AuthController{}
