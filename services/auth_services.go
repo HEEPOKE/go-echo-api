@@ -2,6 +2,8 @@ package services
 
 import (
 	"errors"
+	"fmt"
+	"log"
 	"main/config"
 	"main/models"
 	"time"
@@ -21,13 +23,23 @@ func NewAuthService(db *gorm.DB) *AuthService {
 }
 
 func (as *AuthService) RegisterUser(user *models.User) error {
+	if as.db == nil {
+		return fmt.Errorf("database is nil")
+	}
+
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
-		return err
+		log.Printf("failed to hash password for user %s: %s", user.Email, err.Error())
+		return fmt.Errorf("failed to hash password: %w", err)
 	}
 	user.Password = string(hashedPassword)
 
-	return as.db.Create(user).Error
+	if err := as.db.Create(user).Error; err != nil {
+		log.Printf("failed to create user %s: %s", user.Email, err.Error())
+		return fmt.Errorf("failed to create user: %w", err)
+	}
+
+	return nil
 }
 
 func (as *AuthService) AuthenticateUser(email, password string) (*models.User, error) {

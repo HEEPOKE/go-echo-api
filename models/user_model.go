@@ -17,9 +17,9 @@ type User struct {
 	gorm.Model
 	Name      string    `gorm:"not null;size:255" json:"name"`
 	Email     string    `gorm:"not null;uniqueIndex;size:255" json:"email"`
-	Password  string    `gorm:"not null;size:255" json:"-"`
+	Password  string    `gorm:"not null;size:255" json:"password"`
 	Tel       string    `gorm:"not null;size:255" json:"tel"`
-	Role      Role      `gorm:"not null;size:255default:user" json:"role"`
+	Role      Role      `gorm:"not null;size:255default:user"`
 	Token     string    `gorm:"size:255" json:"token,omitempty"`
 	ExpiresAt time.Time `json:"expires_at,omitempty"`
 }
