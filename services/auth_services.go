@@ -59,7 +59,7 @@ func (as *AuthService) AuthenticateUser(email, password string) (*models.User, e
 func (as *AuthService) GenerateToken(userID uint) (*models.Token, error) {
 	claims := jwt.MapClaims{
 		"userID": userID,
-		"exp":    time.Now().Add(time.Hour * 24).Unix(), // token expires in 24 hours
+		"exp":    time.Now().Add(time.Hour * 24).Unix(),
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenString, err := token.SignedString(as.secretKey)
